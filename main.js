@@ -2,7 +2,7 @@
  * @Author: JindaiKirin
  * @Date: 2018-07-09 10:52:50
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2019-06-12 09:53:24
+ * @Last Modified time: 2019-06-16 03:40:41
  */
 import CQWebsocket from 'cq-websocket'
 import config from './modules/config'
@@ -153,7 +153,7 @@ bot
     console.log(`${getTime()} 连接失败[${wsType}]#${attempts}`)
   )
   .on('socket.error', (wsType, err) =>
-    console.log(`${getTime()} 连接错误[${wsType}]#${attempts}`)
+    console.log(`${getTime()} 连接错误[${wsType}]#${err}`)
   )
   .on('socket.connect', (wsType, sock, attempts) => {
     console.log(`${getTime()} 连接成功[${wsType}]#${attempts}`)
