@@ -2,7 +2,7 @@
  * @Author: JindaiKirin
  * @Date: 2018-07-09 10:52:50
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2019-06-11 01:19:36
+ * @Last Modified time: 2019-06-12 09:53:24
  */
 import CQWebsocket from 'cq-websocket'
 import config from './modules/config'
@@ -584,7 +584,9 @@ function getLiving(e, context) {
       arr.forEach(row => {
         replyMsg(
           context,
-          `DD小助手提醒您\n` +
+          ddAtHelper(row.name) +
+            CQ.at(756316845) +
+            `\nDD小助手提醒您\n` +
             row.name +
             `开勃了！\n` +
             `直播间链接:https://live.bilibili.com/` +
@@ -595,4 +597,37 @@ function getLiving(e, context) {
   }
   ddServe = schedule.scheduleJob('*/3 * * * *', sendDDMsg)
   sendDDMsg()
+}
+
+function ddAtHelper(str) {
+  if (!str) return ''
+  let arr = [
+    {
+      id: 402296072,
+      follow: '白音小雪'
+    },
+    {
+      id: 379446171,
+      follow: '白上吹雪,湊-阿库娅,神楽めあ'
+    },
+    {
+      id: 844011737,
+      follow: '湊-阿库娅'
+    },
+    {
+      id: 814356883,
+      follow: '白上吹雪,大神澪,夏色祭,神楽七奈,百鬼绫目'
+    },
+    {
+      id: 632509009,
+      follow: '白上吹雪,夏色祭'
+    }
+  ]
+  let atList = ''
+  arr.forEach(row => {
+    if (row.follow.includes(str.split('Off')[0])) {
+      atList += CQ.at(row.id) + '\n'
+    }
+  })
+  return atList
 }
