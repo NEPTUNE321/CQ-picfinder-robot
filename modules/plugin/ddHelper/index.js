@@ -52,18 +52,23 @@ const helpMeDD = (qq, name) => {
   const qqfollow = fs.readJsonSync(qqPath)
   let arr = Object.assign(qqfollow, {})
   let list = []
+  let youMsg = []
   arr.forEach(element => {
-    if (element.id === qq) element.follow = element.follow + name
+    if (element.id === qq) {
+      youMsg = element
+      element.follow = element.follow + name
+    }
     list.push(element.id)
   })
   if (!list.includes(qq)) {
-    arr.push({
+    youMsg = {
       "id": qq,
       "follow": name
-    })
+    }
+    arr.push(youMsg)
   }
   fs.writeJsonSync(qqPath, arr)
-  return true
+  return youMsg.follow
 }
 
 const ddAtHelper = (CQ, str) => {

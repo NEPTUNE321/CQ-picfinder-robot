@@ -223,8 +223,9 @@ function privateAndAtMsg (e, context) {
   }
   if (atDDReg.exec(context.message)) {
     let str = context.message.split('关注')[1]
-    if (ddHelper.helpMeDD(context.user_id, str))
-      replyMsg(context, `已关注:${str}\n`, true)
+    let ddMsg = ddHelper.helpMeDD(context.user_id, str)
+    if (ddMsg)
+      replyMsg(context, `已为您关注:${str}\n您当前已关注:${ddMsg}`, true)
     return
   }
   if (hasImage(context.message)) {
