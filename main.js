@@ -214,17 +214,17 @@ function privateAndAtMsg (e, context) {
     let roomId = context.message.split(',')[1]
     let name = context.message.split(',')[2]
     ddHelper.addDDlist(roomId, name)
-    replyMsg('收录' + name + '成功\n当前收录vtb\n' + ddHelper.checkVtb())
+    replyMsg(context, '收录' + name + '成功\n当前收录vtb\n' + ddHelper.checkVtb())
     return
   }
   if (checkVtbReg.exec(context.message)) {
-    replyMsg(CQ.at(context.user_id) + '\n当前收录vtb\n' + ddHelper.checkVtb())
+    replyMsg(context, '\n当前收录vtb\n' + ddHelper.checkVtb(), true)
     return
   }
   if (atDDReg.exec(context.message)) {
     let str = context.message.split('关注')[1]
     if (ddHelper.helpMeDD(context.user_id, str))
-      replyMsg(CQ.at(context.user_id) + '\n已关注:' + str)
+      replyMsg(context, `已关注:${str}\n`, true)
     return
   }
   if (hasImage(context.message)) {
