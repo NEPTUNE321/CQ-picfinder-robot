@@ -68,7 +68,7 @@ const helpMeDD = (qq, name) => {
 
 const ddAtHelper = (CQ, str) => {
   if (!str) return ''
-  const arr = fs.readJsonSync(followPath)
+  const arr = fs.readJsonSync(qqPath)
   let atList = ''
   arr.forEach(row => {
     if (row.follow.includes(str.split('Off')[0])) {
@@ -79,7 +79,7 @@ const ddAtHelper = (CQ, str) => {
 }
 
 const checkVtb = () => {
-  const object = fs.readJsonSync(qqPath)
+  const object = fs.readJsonSync(followPath)
   let arr = []
   for (const key in object) {
     if (object.hasOwnProperty(key)) {
