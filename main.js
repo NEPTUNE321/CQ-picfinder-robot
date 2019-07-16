@@ -29,6 +29,9 @@ const signReg = new RegExp(setting.regs.sign)
 const addGroupReg = /--add-group=([0-9]+)/
 const banReg = /--ban-([ug])=([0-9]+)/
 const schedule = require('node-schedule')
+const addDDReg = new RegExp(setting.regs.addDD)
+const atDDReg = new RegExp(setting.regs.atDD)
+const checkVtbReg = new RegExp(setting.regs.checkVtb)
 
 //初始化
 Pfsql.sqlInitialize()
@@ -188,7 +191,7 @@ setInterval(() => {
 }, 60 * 60 * 1000)
 
 //通用处理
-function commonHandle(e, context) {
+function commonHandle (e, context) {
   //黑名单检测
   if (Logger.checkBan(context.user_id, context.group_id)) return false
 
@@ -205,9 +208,25 @@ function commonHandle(e, context) {
 }
 
 //私聊以及群组@的处理
-function privateAndAtMsg(e, context) {
+function privateAndAtMsg (e, context) {
   if (!commonHandle(e, context)) return
-
+  if (addDDReg.exec(context.message) && (context.user_id === setting.admin)) {
+    let roomId = context.message.split(',')[1]
+    let name = context.message.split(',')[2]
+    ddHelper.addDDlist(roomId, name)
+    replyMsg('收录' + name + '成功\n当前收录vtb\n' + ddHelper.checkVtb())
+    return
+  }
+  if (checkVtbReg.exec(context.message)) {
+    replyMsg(CQ.at(context.user_id) + '\n当前收录vtb\n' + ddHelper.checkVtb())
+    return
+  }
+  if (atDDReg.exec(context.message)) {
+    let str = context.message.split('关注')[1]
+    if (ddHelper.helpMeDD(context.user_id, str))
+      replyMsg(CQ.at(context.user_id) + '\n已关注:' + str)
+    return
+  }
   if (hasImage(context.message)) {
     //搜图
     e.stopPropagation()
@@ -238,7 +257,7 @@ function privateAndAtMsg(e, context) {
 }
 
 //调试模式
-function debugRrivateAndAtMsg(e, context) {
+function debugRrivateAndAtMsg (e, context) {
   if (context.user_id != setting.admin) {
     e.stopPropagation()
     return setting.replys.debug
@@ -248,7 +267,7 @@ function debugRrivateAndAtMsg(e, context) {
 }
 
 //群组消息处理
-function groupMsg(e, context) {
+function groupMsg (e, context) {
   if (!commonHandle(e, context)) return
 
   //进入或退出搜图模式
@@ -305,7 +324,7 @@ function groupMsg(e, context) {
     //随机复读，rptLog得到当前复读次数
     if (
       logger.rptLog(group_id, user_id, context.message) >=
-        setting.repeat.times &&
+      setting.repeat.times &&
       getRand() <= setting.repeat.probability
     ) {
       logger.rptDone(group_id)
@@ -329,9 +348,9 @@ function groupMsg(e, context) {
  * @param {number} [customDB=-1]
  * @returns
  */
-async function searchImg(context, customDB = -1) {
+async function searchImg (context, customDB = -1) {
   //提取参数
-  function hasCommand(cmd) {
+  function hasCommand (cmd) {
     return context.message.search('--' + cmd) !== -1
   }
 
@@ -458,7 +477,7 @@ async function searchImg(context, customDB = -1) {
   }
 }
 
-function doOCR(context) {
+function doOCR (context) {
   let msg = context.message
   let imgs = getImgs(msg)
   let lang = null
@@ -476,7 +495,7 @@ function doOCR(context) {
   }
 }
 
-function doAkhr(context) {
+function doAkhr (context) {
   if (setting.akhr.enable) {
     let msg = context.message
     let imgs = getImgs(msg)
@@ -508,7 +527,7 @@ function doAkhr(context) {
  * @param {string} msg
  * @returns 图片URL数组
  */
-function getImgs(msg) {
+function getImgs (msg) {
   let reg = /\[CQ:image,file=([^,]+),url=([^\]]+)\]/g
   let result = []
   let search = reg.exec(msg)
@@ -528,7 +547,7 @@ function getImgs(msg) {
  * @param {string} msg 消息
  * @returns 有则返回true
  */
-function hasImage(msg) {
+function hasImage (msg) {
   return msg.indexOf('[CQ:image') !== -1
 }
 
@@ -539,7 +558,7 @@ function hasImage(msg) {
  * @param {string} msg 回复内容
  * @param {boolean} at 是否at发送者
  */
-function replyMsg(context, msg, at = false) {
+function replyMsg (context, msg, at = false) {
   if (typeof msg != 'string' || msg.length == 0) return
   if (context.group_id) {
     return bot('send_group_msg', {
@@ -564,11 +583,11 @@ function replyMsg(context, msg, at = false) {
  *
  * @returns 0到100之间的随机浮点数
  */
-function getRand() {
+function getRand () {
   return rand.floatBetween(0, 100)
 }
 
-function getTime() {
+function getTime () {
   return new Date().toLocaleString()
 }
 
@@ -576,58 +595,25 @@ function getTime() {
  * dd小助手
  */
 var ddServe = null
-function getLiving(e, context) {
+function getLiving (e, context) {
   if (ddServe) return
-  async function sendDDMsg() {
+  async function sendDDMsg () {
     let arr = await ddHelper.checkLiving()
     if (arr) {
       arr.forEach(row => {
         replyMsg(
           context,
-          ddAtHelper(row.name) +
-            CQ.at(756316845) +
-            `\nDD小助手提醒您\n` +
-            row.name +
-            `开勃了！\n` +
-            `直播间链接:https://live.bilibili.com/` +
-            row.id
+          ddHelper.ddAtHelper(CQ, row.name) +
+          CQ.at(756316845) +
+          `\nDD小助手提醒您\n` +
+          row.name +
+          `开勃了！\n` +
+          `直播间链接:https://live.bilibili.com/` +
+          row.id
         )
       })
     }
   }
   ddServe = schedule.scheduleJob('*/3 * * * *', sendDDMsg)
   sendDDMsg()
-}
-
-function ddAtHelper(str) {
-  if (!str) return ''
-  let arr = [
-    {
-      id: 402296072,
-      follow: '白音小雪'
-    },
-    {
-      id: 379446171,
-      follow: '白上吹雪,湊-阿库娅,神楽めあ'
-    },
-    {
-      id: 844011737,
-      follow: '湊-阿库娅'
-    },
-    {
-      id: 814356883,
-      follow: '白上吹雪,大神澪,夏色祭,神楽七奈,百鬼绫目'
-    },
-    {
-      id: 632509009,
-      follow: '白上吹雪,夏色祭'
-    }
-  ]
-  let atList = ''
-  arr.forEach(row => {
-    if (row.follow.includes(str.split('Off')[0])) {
-      atList += CQ.at(row.id) + '\n'
-    }
-  })
-  return atList
 }
