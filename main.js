@@ -211,8 +211,9 @@ function commonHandle (e, context) {
 function privateAndAtMsg (e, context) {
   if (!commonHandle(e, context)) return
   if (addDDReg.exec(context.message) && (context.user_id === setting.admin)) {
-    let roomId = context.message.split(',')[1]
-    let name = context.message.split(',')[2]
+    let msg = context.message.split('直播间,')[1]
+    let roomId = msg.split(',')[0]
+    let name = msg.split(',')[1]
     ddHelper.addDDlist(roomId, name)
     replyMsg(context, '收录' + name + '成功\n当前收录vtb\n' + ddHelper.checkVtb())
     return

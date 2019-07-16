@@ -88,8 +88,8 @@ const checkVtb = () => {
   let arr = []
   for (const key in object) {
     if (object.hasOwnProperty(key)) {
-      const element = object[key];
-      arr.push(element.name)
+      const element = object[key]
+      arr.push(`${element.name}\n`)
     }
   }
   return arr.toString()
