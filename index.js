@@ -12,9 +12,12 @@ app.get('/get-vtb-list', function (req, res) {
 });
 
 app.get('/follow-dd', function (req, res) {
-  console.log(req)
-  // ddHelper.helpMeDD(req)
-  res.send('操作成功');
+  if (!req.query.qq) {
+    res.send('请输入QQ号');
+    return
+  }
+  const ddMsg = ddHelper.helpMeDD(req.query.qq, req.query.follow)
+  res.send(ddMsg);
 });
 
 //设置端口
