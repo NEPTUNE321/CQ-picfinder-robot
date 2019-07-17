@@ -1,7 +1,7 @@
 require = require("esm")(module);
 module.exports = require("./main");
 
-import ddHelper from './modules/plugin/ddHelper'
+const ddHelper = require('./modules/plugin/ddHelper')
 const express = require('express');
 const app = express();
 
