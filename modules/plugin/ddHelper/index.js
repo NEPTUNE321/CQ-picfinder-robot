@@ -76,7 +76,7 @@ const ddAtHelper = (CQ, str) => {
   const arr = fs.readJsonSync(qqPath)
   let atList = ''
   arr.forEach(row => {
-    if (row.follow.includes(str.split('Off')[0])) {
+    if (str.includes(row.follow)) {
       atList += CQ.at(row.id) + '\n'
     }
   })
