@@ -3,12 +3,12 @@ module.exports = require("./main");
 
 const express = require('express');
 const app = express();
-import { checkVtb } from './modules/plugin/ddHelper'
-
+const ddHelper = require('./modules/plugin/ddHelper')
+console.log(ddHelper)
 //设置路由
 app.get('/get-vtb-list', function (req, res) {
   const reg = new RegExp("\n", "g");
-  const arr = checkVtb().replace(reg, "").split(',')
+  const arr = ddHelper.checkVtb().replace(reg, "").split(',')
   res.send(arr);
 });
 
