@@ -50,14 +50,20 @@ const addDDlist = (roomId, name) => {
 const helpMeDD = (qq, name) => {
   if (!name || !qq) return
   const qqfollow = fs.readJsonSync(qqPath)
+  let followList = [name]
+  if (name.indexOf(',')) {
+    followList = name.split(',')
+  }
   let arr = Object.assign(qqfollow, {})
   let list = []
   let youMsg = []
   arr.forEach(element => {
     if (element.id === qq) {
       youMsg = element
-      if (!element.follow.includes(name))
-        element.follow = element.follow + ',' + name
+      followList.forEach(row => {
+        if (!element.follow.includes(row))
+          element.follow = element.follow + ',' + row
+      })
     }
     list.push(element.id)
   })
