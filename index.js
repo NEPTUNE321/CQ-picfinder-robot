@@ -4,12 +4,17 @@ module.exports = require("./main");
 const express = require('express');
 const app = express();
 const ddHelper = require('./modules/plugin/ddHelper').default
-console.log(ddHelper)
 //设置路由
 app.get('/get-vtb-list', function (req, res) {
   const reg = new RegExp("\n", "g");
   const arr = ddHelper.checkVtb().replace(reg, "").split(',')
   res.send(arr);
+});
+
+app.get('/follow-dd', function (req, res) {
+  console.log(req)
+  // ddHelper.helpMeDD(req)
+  res.send('操作成功');
 });
 
 //设置端口
