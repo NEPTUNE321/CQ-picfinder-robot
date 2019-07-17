@@ -1,14 +1,14 @@
 require = require("esm")(module);
 module.exports = require("./main");
 
-const ddHelper = require('./modules/plugin/ddHelper')
 const express = require('express');
 const app = express();
+import { checkVtb } from './modules/plugin/ddHelper'
 
 //设置路由
 app.get('/get-vtb-list', function (req, res) {
   const reg = new RegExp("\n", "g");
-  const arr = ddHelper.checkVtb().replace(reg, "").split(',')
+  const arr = checkVtb().replace(reg, "").split(',')
   res.send(arr);
 });
 
