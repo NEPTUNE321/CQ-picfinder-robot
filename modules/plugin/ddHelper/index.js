@@ -56,7 +56,8 @@ const helpMeDD = (qq, name) => {
   arr.forEach(element => {
     if (element.id === qq) {
       youMsg = element
-      element.follow = element.follow + ',' + name
+      if (!element.follow.includes(name))
+        element.follow = element.follow + ',' + name
     }
     list.push(element.id)
   })

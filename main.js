@@ -215,11 +215,11 @@ function privateAndAtMsg (e, context) {
     let roomId = msg.split(',')[0]
     let name = msg.split(',')[1]
     ddHelper.addDDlist(roomId, name)
-    replyMsg(context, '收录' + name + '成功\n当前收录vtb\n' + ddHelper.checkVtb())
+    replyMsg(context, '收录' + name + '成功\n当前收录vtb' + ddHelper.checkVtb())
     return
   }
   if (checkVtbReg.exec(context.message)) {
-    replyMsg(context, '\n当前收录vtb\n' + ddHelper.checkVtb(), true)
+    replyMsg(context, '\n当前收录vtb' + ddHelper.checkVtb(), true)
     return
   }
   if (atDDReg.exec(context.message)) {
