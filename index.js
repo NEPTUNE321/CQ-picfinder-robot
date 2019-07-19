@@ -16,7 +16,21 @@ app.get('/follow-dd', function (req, res) {
     res.send('请输入QQ号');
     return
   }
-  const ddMsg = ddHelper.helpMeDD(req.query.qq, req.query.follow)
+  const follow = decodeURIComponent(req.query.follow)
+  const ddMsg = ddHelper.helpMeDD(req.query.qq, follow)
+  res.send(ddMsg);
+});
+
+app.get('/add-dd-list', function (req, res) {
+  if (!req.query.roomId) {
+    res.send('请输入房间号');
+    return
+  }
+  const name = decodeURIComponent(req.query.name)
+  let ddMsg = '收录失败'
+  if (ddHelper.addDDlist(roomId, name)) {
+    ddMsg = '收录' + name + '成功\n当前收录vtb' + ddHelper.checkVtb()
+  }
   res.send(ddMsg);
 });
 
