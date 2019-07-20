@@ -26,7 +26,7 @@ app.get('/add-dd-list', function (req, res) {
     res.send('请输入房间号');
     return
   }
-  const name = decodeURIComponent(req.query.name)
+  const name = decodeURIComponent(req.query.roomName)
   let ddMsg = '收录失败'
   if (ddHelper.addDDlist(req.query.roomId, name)) {
     ddMsg = '收录' + name + '成功\n当前收录vtb' + ddHelper.checkVtb()
