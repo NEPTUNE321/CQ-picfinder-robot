@@ -28,7 +28,7 @@ app.get('/add-dd-list', function (req, res) {
   }
   const name = decodeURIComponent(req.query.name)
   let ddMsg = '收录失败'
-  if (ddHelper.addDDlist(roomId, name)) {
+  if (ddHelper.addDDlist(req.query.roomId, name)) {
     ddMsg = '收录' + name + '成功\n当前收录vtb' + ddHelper.checkVtb()
   }
   res.send(ddMsg);
