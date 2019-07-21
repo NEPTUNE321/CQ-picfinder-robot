@@ -3,7 +3,7 @@ const check = require('./common/check')
 const checkYtb = require('./youtubeHelper/check')
 const jsonPath = './modules/plugin/ddHelper/runtime/last.json'
 const biliPath = './modules/plugin/ddHelper/json/following.json'
-const ytbPath = './modules/plugin/ddHelper/json/following.json'
+const ytbPath = './modules/plugin/ddHelper/json/youtubeFollow.json'
 const qqPath = './modules/plugin/ddHelper/json/ddList.json'
 
 var newLiving = []
@@ -37,7 +37,9 @@ async function checkLive (followPath, checkFun) {
 }
 
 const checkLiving = () => {
-  let living = Object.assign(checkLive(biliPath, check), checkLive(ytbPath, checkYtb))
+  const biliArr = checkLive(biliPath, check)
+  const youArr = checkLive(ytbPath, checkYtb)
+  let living = Object.assign(biliArr, youArr)
   console.log(living)
   return living
 }
