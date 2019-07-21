@@ -72,6 +72,9 @@
     "akhr": {
       "enable": false,
       "ocr": "ocr.space"
+    },
+    "google": {
+      "key": ""
     }
   },
   "mysql": {

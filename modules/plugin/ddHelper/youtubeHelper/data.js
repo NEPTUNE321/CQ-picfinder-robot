@@ -1,6 +1,7 @@
 import Axios from 'axios'
+import conf from '../config.default.json';
 
-const key = 'AIzaSyB30NVmVSCSE-cf9K5C5H3AIc2yK0NBG9s'
+const key = conf.google.key
 
 let params = {
   eventType: 'live',
