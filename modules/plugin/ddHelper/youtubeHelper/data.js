@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import conf from '../config.default.json';
+import conf from '../../../../config.default.json';
 
 const key = conf.google.key
 
