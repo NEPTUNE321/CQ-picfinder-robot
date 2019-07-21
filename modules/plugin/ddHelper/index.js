@@ -87,13 +87,13 @@ const helpMeDD = (qq, name) => {
 }
 
 const ddAtHelper = (CQ, str) => {
-  if (!str) return ''
+  if (!str.roomId) return ''
   const arr = fs.readJsonSync(qqPath)
   let atList = ''
   arr.forEach(row => {
     row.follow.split(',').forEach(e => {
-      if (str.includes(e)) {
-        atList += CQ.at(row.id) + '\n'
+      if (str.roomId.includes(e)) {
+        atList += CQ.at(row.roomId) + '\n'
       }
     })
   })

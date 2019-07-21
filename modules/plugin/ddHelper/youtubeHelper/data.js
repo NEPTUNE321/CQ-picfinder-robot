@@ -11,10 +11,12 @@ let params = {
 
 function user (id) {
   params.channelId = id
+  console.log(id, '=============')
   return new Promise(function (resolved, reject) {
     let api = `https://content.googleapis.com/youtube/v3/search`
     Axios.get(api, { params })
       .then(res => {
+        console.log(res.data.items)
         // https://www.youtube.com/watch?v=res.data.items.id.videoId
         user = res.data.items
         resolved(user)
