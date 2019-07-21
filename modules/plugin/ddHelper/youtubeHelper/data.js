@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import conf from '../../../config';
 
-const key = conf.google.key
+const key = conf.picfinder.google.key
 
 let params = {
   eventType: 'live',
