@@ -1,6 +1,6 @@
 import Axios from 'axios'
 
-const key = 'AIzaSyB_KwkA7BmXg2Abj820Doq52TqK0w_IRxs'
+const key = 'AIzaSyB30NVmVSCSE-cf9K5C5H3AIc2yK0NBG9s'
 
 let params = {
   eventType: 'live',
@@ -11,7 +11,8 @@ let params = {
 
 function user (id) {
   params.channelId = id
-  console.log(id, '=============')
+  const hour = new Date().getHours()
+  if (hour < 18) return []
   return new Promise(function (resolved, reject) {
     let api = `https://content.googleapis.com/youtube/v3/search`
     Axios.get(api, { params })

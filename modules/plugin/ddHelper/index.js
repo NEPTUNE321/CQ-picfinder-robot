@@ -40,7 +40,6 @@ const checkLiving = () => {
   const biliArr = checkLive(biliPath, check)
   const youArr = checkLive(ytbPath, checkYtb)
   let living = Object.assign(biliArr, youArr)
-  console.log(living)
   return living
 }
 
