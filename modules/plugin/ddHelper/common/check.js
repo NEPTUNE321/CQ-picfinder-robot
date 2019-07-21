@@ -6,9 +6,10 @@ const _user = require('./user')
  * @param id
  * @return {Promise}
  */
-async function check(id) {
+async function check (id) {
   let data = await _data(id)
   let user = await _user(id)
+  console.log(data)
   let info = {
     id: data.room_id,
     status: data.live_status === 1

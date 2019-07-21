@@ -6,8 +6,7 @@ const app = express();
 const ddHelper = require('./modules/plugin/ddHelper').default
 //设置路由
 app.get('/get-vtb-list', function (req, res) {
-  const reg = new RegExp("\n", "g");
-  const arr = ddHelper.checkVtb().replace(reg, "").split(',')
+  const arr = ddHelper.checkVtb(req.query.type || 'bilibili', 'str')
   res.send(arr);
 });
 

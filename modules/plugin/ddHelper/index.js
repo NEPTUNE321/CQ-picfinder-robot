@@ -1,17 +1,19 @@
 const fs = require('fs-extra')
 const check = require('./common/check')
+const checkYtb = require('./youtubeHelper/check')
 const jsonPath = './modules/plugin/ddHelper/runtime/last.json'
-const followPath = './modules/plugin/ddHelper/json/following.json'
+const biliPath = './modules/plugin/ddHelper/json/following.json'
+const ytbPath = './modules/plugin/ddHelper/json/following.json'
 const qqPath = './modules/plugin/ddHelper/json/ddList.json'
 
 var newLiving = []
 
 fs.writeJsonSync(jsonPath, [])
 
-async function checkLiving () {
+async function checkLive (followPath, checkFun) {
   let ups = fs.readJsonSync(followPath)
   let upId = Object.keys(ups)
-  let promiseArr = upId.map(ele => check(ele))
+  let promiseArr = upId.map(ele => checkFun(ele))
   let data = await Promise.all(promiseArr)
   // 获取上次检测结果
   let lastResult = fs.readJsonSync(jsonPath)
@@ -34,16 +36,22 @@ async function checkLiving () {
   return newLiving
 }
 
+const checkLiving = () => {
+  let living = Object.assign(checkLive(biliPath, check), checkLive(ytbPath, checkYtb))
+  console.log(living)
+  return living
+}
+
 const addDDlist = (roomId, name) => {
   if (!roomId || !name) return
-  const follow = fs.readJsonSync(followPath)
+  const follow = fs.readJsonSync(biliPath)
   let obj = Object.assign(follow, {})
   obj[roomId] = {
     "name": name,
     "roomId": roomId,
     "urlId": roomId
   }
-  fs.writeJsonSync(followPath, obj)
+  fs.writeJsonSync(biliPath, obj)
   return true
 }
 
@@ -92,18 +100,26 @@ const ddAtHelper = (CQ, str) => {
   return atList
 }
 
-const checkVtb = () => {
-  const object = fs.readJsonSync(followPath)
+const checkVtb = (type, str) => {
+  let path = biliPath
+  if (type === 'you') path = ytbPath
+  const object = fs.readJsonSync(path)
   let arr = []
   for (const key in object) {
     if (object.hasOwnProperty(key)) {
       const element = object[key]
-      arr.push(`\n${element.name}`)
+      if (str) {
+        arr.push({
+          name: element.name,
+          id: element.roomId
+        })
+      } else {
+        arr.push(`\n${element.name}`)
+      }
     }
   }
   return arr.toString()
 }
-
 
 export default {
   checkLiving,
