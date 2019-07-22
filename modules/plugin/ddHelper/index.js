@@ -42,7 +42,7 @@ const checkLiving = () => {
   const biliArr = checkLive(biliPath, check, biliJsonPath)
   const youArr = checkLive(ytbPath, checkYtb, ytbJsonPath)
   let living = Object.assign(biliArr, [])
-  youArr.forEach(element => {
+  if (youArr && youArr.length > 0) youArr.forEach(element => {
     living.push(element)
   })
   return living
