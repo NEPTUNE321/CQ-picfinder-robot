@@ -15,8 +15,9 @@ function user (id) {
   const hour = new Date().getHours()
   if (hour < 18) return []
   return new Promise(function (resolved, reject) {
-    let api = `https://content.googleapis.com/youtube/v3/search`
-    Axios.get(api, { params })
+    const query = `?channelId=${params.channelId}&eventType=${params.eventType}&part=${params.part}&type=${params.type}&key=${params.key}`
+    const api = `https://content.googleapis.com/youtube/v3/search${query}`
+    Axios.get(api)
       .then(res => {
         console.log(res.data.items)
         // https://www.youtube.com/watch?v=res.data.items.id.videoId
