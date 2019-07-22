@@ -13,8 +13,12 @@ let params = {
 function user (id) {
   params.channelId = id
   const hour = new Date().getHours()
-  if (hour < 18) return []
+
   return new Promise(function (resolved, reject) {
+    if (hour < 18 || hour === 0) {
+      resolved([])
+      return
+    }
     const query = `?channelId=${params.channelId}&eventType=${params.eventType}&part=${params.part}&type=${params.type}&key=${params.key}`
     const api = `https://content.googleapis.com/youtube/v3/search${query}`
     Axios.get(api)
