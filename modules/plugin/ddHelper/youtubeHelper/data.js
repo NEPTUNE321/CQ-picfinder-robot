@@ -17,7 +17,6 @@ function user (id) {
   return new Promise(function (resolved, reject) {
     const query = `?channelId=${params.channelId}&eventType=${params.eventType}&part=${params.part}&type=${params.type}&key=${params.key}`
     const api = `https://content.googleapis.com/youtube/v3/search${query}`
-    console.log(api)
     Axios.get(api)
       .then(res => {
         console.log(res.data.items)
