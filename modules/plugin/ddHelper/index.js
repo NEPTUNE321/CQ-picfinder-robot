@@ -39,8 +39,10 @@ async function checkLive (followPath, checkFun, jsonPath) {
 }
 
 async function checkLiving () {
+  const hour = new Date().getHours()
   const biliArr = await checkLive(biliPath, check, biliJsonPath)
-  const youArr = await checkLive(ytbPath, checkYtb, ytbJsonPath)
+  let youArr = []
+  if (!(hour < 18)) youArr = await checkLive(ytbPath, checkYtb, ytbJsonPath)
   let living = Object.assign(youArr, [])
   if (biliArr && biliArr.length > 0) {
     biliArr.forEach(element => {
