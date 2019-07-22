@@ -18,7 +18,6 @@ async function check (id) {
     info.title = data[0].snippet.title
     info.unix = parseInt(new Date(data[0].snippet.publishedAt).getTime() / 1000)
   }
-  console.log(info)
   return info
 }
 

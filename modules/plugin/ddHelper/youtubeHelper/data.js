@@ -19,7 +19,7 @@ function user (id) {
     const api = `https://content.googleapis.com/youtube/v3/search${query}`
     Axios.get(api)
       .then(res => {
-        console.log(res.data.items)
+        // console.log(res.data.items)
         // https://www.youtube.com/watch?v=res.data.items.id.videoId
         user = res.data.items
         resolved(user)
