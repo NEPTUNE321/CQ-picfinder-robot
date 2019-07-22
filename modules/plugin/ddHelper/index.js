@@ -42,9 +42,11 @@ async function checkLiving () {
   const biliArr = await checkLive(biliPath, check, biliJsonPath)
   const youArr = await checkLive(ytbPath, checkYtb, ytbJsonPath)
   let living = Object.assign(biliArr, [])
-  if (youArr && youArr.length > 0) youArr.forEach(element => {
-    living.push(element)
-  })
+  if (youArr && youArr.length > 0) {
+    youArr.forEach(element => {
+      living.push(element)
+    })
+  }
   return living
 }
 
