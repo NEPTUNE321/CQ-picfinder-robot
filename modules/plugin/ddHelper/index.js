@@ -1,16 +1,18 @@
 const fs = require('fs-extra')
 const check = require('./common/check')
 const checkYtb = require('./youtubeHelper/check')
-const jsonPath = './modules/plugin/ddHelper/runtime/last.json'
+const biliJsonPath = './modules/plugin/ddHelper/runtime/last.json'
+const ytbJsonPath = './modules/plugin/ddHelper/runtime/ytblast.json'
 const biliPath = './modules/plugin/ddHelper/json/following.json'
 const ytbPath = './modules/plugin/ddHelper/json/youtubeFollow.json'
 const qqPath = './modules/plugin/ddHelper/json/ddList.json'
 
 var newLiving = []
 
-fs.writeJsonSync(jsonPath, [])
+fs.writeJsonSync(biliJsonPath, [])
+fs.writeJsonSync(ytbJsonPath, [])
 
-async function checkLive (followPath, checkFun) {
+async function checkLive (followPath, checkFun, jsonPath) {
   let ups = fs.readJsonSync(followPath)
   let upId = Object.keys(ups)
   let promiseArr = upId.map(ele => checkFun(ele))
@@ -37,8 +39,8 @@ async function checkLive (followPath, checkFun) {
 }
 
 const checkLiving = () => {
-  const biliArr = checkLive(biliPath, check)
-  const youArr = checkLive(ytbPath, checkYtb)
+  const biliArr = checkLive(biliPath, check, biliJsonPath)
+  const youArr = checkLive(ytbPath, checkYtb, ytbJsonPath)
   let living = Object.assign(biliArr, youArr)
   return living
 }
