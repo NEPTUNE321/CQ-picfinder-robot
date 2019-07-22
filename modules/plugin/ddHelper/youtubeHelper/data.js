@@ -17,6 +17,7 @@ function user (id) {
   return new Promise(function (resolved, reject) {
     let api = `https://content.googleapis.com/youtube/v3/search`
     console.log(api)
+    console.log(params)
     // Axios.get(api, { params })
     //   .then(res => {
     //     // https://www.youtube.com/watch?v=res.data.items.id.videoId
