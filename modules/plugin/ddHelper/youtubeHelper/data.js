@@ -16,17 +16,17 @@ function user (id) {
   if (hour < 18) return []
   return new Promise(function (resolved, reject) {
     let api = `https://content.googleapis.com/youtube/v3/search`
-    console.log(api)
-    console.log(params)
-    // Axios.get(api, { params })
-    //   .then(res => {
-    //     // https://www.youtube.com/watch?v=res.data.items.id.videoId
-    //     user = res.data.items
-    //     resolved(user)
-    //   })
-    //   .catch(err => {
-    //     return reject(err)
-    //   })
+    Axios.get(api, { params })
+      .then(res => {
+        // https://www.youtube.com/watch?v=res.data.items.id.videoId
+        user = res.data.items
+        setTimeout(() => {
+          resolved(user)
+        }, 1000);
+      })
+      .catch(err => {
+        return reject(err)
+      })
   })
 }
 
