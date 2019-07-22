@@ -601,9 +601,9 @@ function getLiving (e, context) {
   if (ddServe) return
   async function sendDDMsg () {
     let arr = await ddHelper.checkLiving()
-    console.log(arr)
     if (arr) {
       arr.forEach(row => {
+        console.log(row)
         let link = 'https://live.bilibili.com/', title = ''
         if (row.type === 'you') link = 'https://www.youtube.com/watch?v='
         if (row.title) title = `\n直播内容:${row.title}`

@@ -41,8 +41,10 @@ async function checkLive (followPath, checkFun, jsonPath) {
 const checkLiving = () => {
   const biliArr = checkLive(biliPath, check, biliJsonPath)
   const youArr = checkLive(ytbPath, checkYtb, ytbJsonPath)
-  let living = Object.assign(youArr, biliArr)
-  console.log(living)
+  let living = Object.assign(biliArr, [])
+  youArr.forEach(element => {
+    living.push(element)
+  })
   return living
 }
 
