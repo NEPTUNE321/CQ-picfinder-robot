@@ -614,6 +614,6 @@ function getLiving (e, context) {
       })
     }
   }
-  ddServe = schedule.scheduleJob('*/10 * * * *', sendDDMsg)
+  ddServe = schedule.scheduleJob('*/6 * * * *', sendDDMsg)
   sendDDMsg()
 }
