@@ -42,6 +42,8 @@ const checkLiving = () => {
   const biliArr = checkLive(biliPath, check, biliJsonPath)
   const youArr = checkLive(ytbPath, checkYtb, ytbJsonPath)
   let living = Object.assign(biliArr, youArr)
+  console.log(youArr)
+  console.log(living)
   return living
 }
 
