@@ -10,29 +10,23 @@ let params = {
   key: key
 }
 
-var time = 0
-
 function user (id) {
   params.channelId = id
   const hour = new Date().getHours()
   if (hour < 18) return []
   return new Promise(function (resolved, reject) {
     let api = `https://content.googleapis.com/youtube/v3/search`
-    setTimeout(() => {
-      Axios.get(api, { params })
-        .then(res => {
-          console.log(res.data.items)
-          // https://www.youtube.com/watch?v=res.data.items.id.videoId
-          user = res.data.items
-          resolved(user)
-        })
-        .catch(err => {
-          console.log(err.response)
-          return reject(err)
-        })
-      time + 1
-      if (time > 3) time = 0
-    }, time * 1000);
+    Axios.get(api, { params })
+      .then(res => {
+        console.log(res.data.items)
+        // https://www.youtube.com/watch?v=res.data.items.id.videoId
+        user = res.data.items
+        resolved(user)
+      })
+      .catch(err => {
+        if (err.response.data) console.log(err.response.data)
+        return reject(err)
+      })
   })
 }
 
