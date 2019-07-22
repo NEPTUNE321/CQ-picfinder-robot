@@ -606,10 +606,10 @@ function getLiving (e, context) {
         let link = 'https://live.bilibili.com/', title = ''
         if (row.type === 'you') link = 'https://www.youtube.com/watch?v='
         if (row.title) title = `\n直播内容:${row.title}`
-        replyMsg(
-          context,
-          `${ddHelper.ddAtHelper(CQ, row)}${CQ.at(756316845)}\nDD小助手提醒您\n${row.name}开勃了！\n直播间链接:${link}${row.id}${title}`
-        )
+        // replyMsg(
+        //   context,
+        //   `${ddHelper.ddAtHelper(CQ, row)}${CQ.at(756316845)}\nDD小助手提醒您\n${row.name}开勃了！\n直播间链接:${link}${row.id}${title}`
+        // )
       })
     }
   }

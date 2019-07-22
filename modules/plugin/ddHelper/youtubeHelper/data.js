@@ -21,11 +21,11 @@ function user (id) {
       .then(res => {
         console.log(res.data.items)
         // https://www.youtube.com/watch?v=res.data.items.id.videoId
-        user = res.data.items
-        resolved(user)
+        let data = res.data.items
+        resolved(data)
       })
       .catch(err => {
-        if (err.response.data) console.log(err.response.data)
+        if (err.response.data) console.log(JSON.stringify(err.response.data))
         return reject(err)
       })
   })
