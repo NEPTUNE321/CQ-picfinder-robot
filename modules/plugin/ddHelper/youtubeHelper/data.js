@@ -21,11 +21,13 @@ function user (id) {
     setTimeout(() => {
       Axios.get(api, { params })
         .then(res => {
+          console.log(res.data.items)
           // https://www.youtube.com/watch?v=res.data.items.id.videoId
           user = res.data.items
           resolved(user)
         })
         .catch(err => {
+          console.log(err.response)
           return reject(err)
         })
       time + 1
