@@ -128,7 +128,7 @@ const checkVtb = (type, str) => {
       }
     }
   }
-  return arr.toString()
+  return arr
 }
 
 export default {
