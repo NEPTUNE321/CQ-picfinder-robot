@@ -43,7 +43,8 @@ async function checkLiving () {
   const biliArr = await checkLive(biliPath, check, biliJsonPath)
   let youArr = []
   if (!(hour < 18)) youArr = await checkLive(ytbPath, checkYtb, ytbJsonPath)
-  let living = Object.assign(youArr, [])
+  let living = []
+  if (youArr.constructor === Array) living = Object.assign(youArr, [])
   if (biliArr && biliArr.length > 0) {
     biliArr.forEach(element => {
       living.push(element)
