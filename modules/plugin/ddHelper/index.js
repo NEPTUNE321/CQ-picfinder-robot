@@ -100,7 +100,7 @@ const ddAtHelper = (CQ, str) => {
   arr.forEach(row => {
     row.follow.split(',').forEach(e => {
       if (str.roomId.includes(e)) {
-        atList += CQ.at(row.id) + '\n'
+        atList += CQ.at(row.name) + '\n'
       }
     })
   })
