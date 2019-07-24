@@ -22,9 +22,9 @@ function user (id) {
         user = res.data.items
         resolved(user)
       })
-      .catch(err => {
+      .catch(() => {
         // if (err.response.data) console.log(JSON.stringify(err.response.data))
-        return reject(err)
+        reject([])
       })
   })
 }
