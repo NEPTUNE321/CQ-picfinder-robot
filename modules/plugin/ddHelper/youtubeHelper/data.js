@@ -12,21 +12,9 @@ let params = {
 
 function user (id) {
   params.channelId = id
-  return new Promise(function (resolved, reject) {
-    const query = `?channelId=${params.channelId}&eventType=${params.eventType}&part=${params.part}&type=${params.type}&key=${params.key}`
-    const api = `https://content.googleapis.com/youtube/v3/search${query}`
-    Axios.get(api)
-      .then(res => {
-        // console.log(res.data.items)
-        // https://www.youtube.com/watch?v=res.data.items.id.videoId
-        user = res.data.items
-        resolved(user)
-      })
-      .catch(() => {
-        // if (err.response.data) console.log(JSON.stringify(err.response.data))
-        reject([])
-      })
-  })
+  const query = `?channelId=${params.channelId}&eventType=${params.eventType}&part=${params.part}&type=${params.type}&key=${params.key}`
+  const api = `https://content.googleapis.com/youtube/v3/search${query}`
+  return Axios.get(api)
 }
 
 module.exports = user

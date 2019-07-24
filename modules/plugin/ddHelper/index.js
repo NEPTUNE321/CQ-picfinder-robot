@@ -44,7 +44,7 @@ async function checkLiving () {
   let youArr = []
   if (!(hour < 18)) youArr = await checkLive(ytbPath, checkYtb, ytbJsonPath)
   let living = []
-  if (youArr.constructor === Array) living = Object.assign(youArr, [])
+  if (youArr && youArr.data.items.constructor === Array) living = Object.assign(youArr.data.items, [])
   if (biliArr && biliArr.length > 0) living = living.concat(biliArr)
   return living
 }
