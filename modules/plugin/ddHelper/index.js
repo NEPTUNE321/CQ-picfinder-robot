@@ -44,7 +44,7 @@ async function checkLiving () {
   let youArr = []
   if (!(hour < 18)) youArr = await checkLive(ytbPath, checkYtb, ytbJsonPath)
   let living = []
-  if (youArr && youArr.data.items.constructor === Array) living = Object.assign(youArr.data.items, [])
+  if (youArr && youArr.data && youArr.data.items.constructor === Array) living = Object.assign(youArr.data.items, [])
   if (biliArr && biliArr.length > 0) living = living.concat(biliArr)
   return living
 }
@@ -100,7 +100,7 @@ const ddAtHelper = (CQ, str) => {
   arr.forEach(row => {
     row.follow.split(',').forEach(e => {
       if (str.roomId.includes(e)) {
-        atList += CQ.at(row.roomId) + '\n'
+        atList += CQ.at(row.id) + '\n'
       }
     })
   })

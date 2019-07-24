@@ -12,7 +12,7 @@ app.get('/get-vtb-list', function (req, res) {
 
 app.get('/follow-dd', function (req, res) {
   if (!req.query.qq) {
-    res.send('请输入QQ号');
+    res.send('请输入QQ号')
     return
   }
   const follow = decodeURIComponent(req.query.follow)
@@ -22,7 +22,7 @@ app.get('/follow-dd', function (req, res) {
 
 app.get('/add-dd-list', function (req, res) {
   if (!req.query.roomId) {
-    res.send('请输入房间号');
+    res.send('请输入房间号')
     return
   }
   const name = decodeURIComponent(req.query.roomName)
