@@ -39,12 +39,12 @@ async function checkLive (followPath, checkFun, jsonPath) {
 }
 
 async function checkLiving () {
-  const hour = new Date().getHours()
+  // const hour = new Date().getHours()
   const biliArr = await checkLive(biliPath, check, biliJsonPath)
-  let youArr = []
-  if (!(hour < 18)) youArr = await checkLive(ytbPath, checkYtb, ytbJsonPath)
+  // let youArr = []
+  // if (!(hour < 18)) youArr = await checkLive(ytbPath, checkYtb, ytbJsonPath)
   let living = []
-  if (youArr && youArr.data && youArr.data.items.constructor === Array) living = Object.assign(youArr.data.items, [])
+  // if (youArr && youArr.data && youArr.data.items.constructor === Array) living = Object.assign(youArr.data.items, [])
   if (biliArr && biliArr.length > 0) living = living.concat(biliArr)
   return living
 }
