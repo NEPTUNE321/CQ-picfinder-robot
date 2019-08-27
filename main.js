@@ -2,7 +2,7 @@
  * @Author: JindaiKirin
  * @Date: 2018-07-09 10:52:50
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2019-06-16 03:40:41
+ * @Last Modified time: 2019-08-27 09:10:31
  */
 import CQWebsocket from 'cq-websocket'
 import config from './modules/config'
@@ -181,6 +181,10 @@ setInterval(() => {
       if (setting.admin > 0) {
         bot('send_like', {
           user_id: setting.admin,
+          times: 10
+        })
+        bot('send_like', {
+          user_id: 401507794,
           times: 10
         })
       }
