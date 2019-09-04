@@ -33,6 +33,11 @@ app.get('/add-dd-list', function (req, res) {
   res.send(ddMsg);
 });
 
+app.post('/gogs-watcher', function (req, res) {
+  console.log(req, res)
+  res.send();
+});
+
 //设置端口
 const server = app.listen(3000, function () {
   const host = server.address().address;
