@@ -1,6 +1,7 @@
 require = require("esm")(module);
 module.exports = require("./main");
 
+import Axios from 'axios';
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -38,11 +39,11 @@ app.get('/add-dd-list', function (req, res) {
 });
 
 app.post('/gogs-watcher', function (req, res) {
-  console.log(JSON.stringify(req.body));
-  // const data = req.body
-  // let msg = `推送者= ${data.commits[0].author.username} 在 ${data.repository.name} 项目提交信息: ${data.commits[0].message}`
-  // console.log(msg);
-  res.send();
+  const data = req.body
+  let msg = `推送者= ${data.commits[0].author.username} 在 ${data.repository.name} 项目提交信息: ${data.commits[0].message}`
+  Axios.get('http://47.240.36.57:8086/send_private_msg', { params: { user_id: 756316845, message: msg } })
+  // Axios.get('http://47.240.36.57:8086/send_group_msg', { params: { group_id: 991810176, message: msg } })
+  res.send('发送成功');
 });
 
 //设置端口
