@@ -1,7 +1,7 @@
 require = require("esm")(module);
 module.exports = require("./main");
 
-import Axios from 'axios';
+const Axios = require('axios');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
