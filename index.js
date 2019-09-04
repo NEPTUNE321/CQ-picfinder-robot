@@ -40,9 +40,9 @@ app.get('/add-dd-list', function (req, res) {
 
 app.post('/gogs-watcher', function (req, res) {
   const data = req.body
-  let msg = `推送者= ${data.commits[0].author.username} 在 ${data.repository.name} 项目提交信息: ${data.commits[0].message}`
-  Axios.get('http://47.240.36.57:8086/send_private_msg', { params: { user_id: 756316845, message: msg } })
-  // Axios.get('http://47.240.36.57:8086/send_group_msg', { params: { group_id: 991810176, message: msg } })
+  let msg = `推送者= ${data.commits[0].author.username || data.commits[0].author.name} \n在 ${data.repository.name} 提交信息: ${data.commits[0].message}`
+  // Axios.get('http://47.240.36.57:8086/send_private_msg', { params: { user_id: 756316845, message: msg } })
+  Axios.get('http://47.240.36.57:8086/send_group_msg', { params: { group_id: 991810176, message: msg } })
   res.send('发送成功');
 });
 
