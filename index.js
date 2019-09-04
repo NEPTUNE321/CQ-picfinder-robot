@@ -34,8 +34,10 @@ app.get('/add-dd-list', function (req, res) {
 });
 
 app.post('/gogs-watcher', function (req, res) {
-  console.log(req, res)
-  res.send();
+  const data = req.body
+  let msg = `推送者= ${data.commits[0].author.username} 在 ${data.repository.name} 项目提交信息: ${data.commits[0].message}`
+  console.log(msg);
+  res.send(msg);
 });
 
 //设置端口
