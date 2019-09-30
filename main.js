@@ -279,7 +279,7 @@ function groupMsg (e, context) {
   //进入或退出搜图模式
   let { group_id, user_id } = context
 
-  if (group_id === '362737961' || group_id === 362737961) getLiving(e, context)
+  if (group_id * 1 === 362737961) getLiving(e, context)
 
   if (searchModeOnReg.exec(context.message)) {
     //进入搜图
