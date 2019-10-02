@@ -627,4 +627,4 @@ function getLiving (e, context) {
 /**
  * 启动rsshub监听
  */
-rsshub.getMsg()
+rsshub.getMsg(bot)

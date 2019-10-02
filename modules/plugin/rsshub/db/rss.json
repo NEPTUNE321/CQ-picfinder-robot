@@ -14,5 +14,21 @@
     ],
     "translate": false,
     "proxy": false
+  },
+  "Twitter-ookamimio": {
+    "url": "/twitter/user/ookamimio",
+    "group": [
+      362737961
+    ],
+    "translate": false,
+    "proxy": false
+  },
+  "Twitter-RindouMikoto": {
+    "url": "/twitter/user/RindouMikoto",
+    "group": [
+      362737961
+    ],
+    "translate": false,
+    "proxy": false
   }
 }

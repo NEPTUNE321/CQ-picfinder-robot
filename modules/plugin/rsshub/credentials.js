@@ -1,5 +1,5 @@
 module.exports = {
-  rsshub: 'http://rsshub.app',
+  rsshub: 'http://localhost:1200',
   // 有道翻译
   youdao: {
     appid: '38f0003e8af4ee2b',

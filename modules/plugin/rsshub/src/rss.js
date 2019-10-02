@@ -106,8 +106,6 @@ function sub (config, send) {
         '----------------------\n' +
         `原链接：${item.link}\n` +
         `日期：${dayjs(item.pubDate).format('M月D日HH:mm:ss')}`;
-      console.log(message)
-      console.log(group_id)
       Promise.all(config.group.map(group_id => send(message, group_id))).then(() => {
         logger.info('rss：发送成功 ==> ' + item.link);
         images.forEach(path => {
