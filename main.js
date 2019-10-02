@@ -18,7 +18,7 @@ import sendSetu from './modules/plugin/setu'
 import ocr from './modules/plugin/ocr'
 import Akhr from './modules/plugin/akhr'
 import ddHelper from './modules/plugin/ddHelper'
-import { getMsg } from './modules/plugin/rsshub'
+import rsshub from './modules/plugin/rsshub'
 import _ from 'lodash'
 
 //常量
@@ -276,7 +276,7 @@ function debugRrivateAndAtMsg (e, context) {
 //群组消息处理
 function groupMsg (e, context) {
   if (!commonHandle(e, context)) return
-  getMsg()
+  rsshub.getMsg()
 
   //进入或退出搜图模式
   let { group_id, user_id } = context
