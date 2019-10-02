@@ -276,7 +276,6 @@ function debugRrivateAndAtMsg (e, context) {
 //群组消息处理
 function groupMsg (e, context) {
   if (!commonHandle(e, context)) return
-  rsshub.getMsg()
 
   //进入或退出搜图模式
   let { group_id, user_id } = context
@@ -624,3 +623,8 @@ function getLiving (e, context) {
   ddServe = schedule.scheduleJob('*/3 * * * *', sendDDMsg)
   sendDDMsg()
 }
+
+/**
+ * 启动rsshub监听
+ */
+rsshub.getMsg()
