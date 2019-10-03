@@ -1,18 +1,10 @@
 {
-  "Twitter-yebo756316845": {
-    "url": "/twitter/user/yebo756316845",
-    "group": [
-      362737961
-    ],
-    "translate": false,
-    "proxy": false
-  },
   "Twitter-shirakamifubuki": {
     "url": "/twitter/user/shirakamifubuki",
     "group": [
       362737961
     ],
-    "translate": false,
+    "translate": true,
     "proxy": false
   },
   "Twitter-ookamimio": {
@@ -20,7 +12,7 @@
     "group": [
       362737961
     ],
-    "translate": false,
+    "translate": true,
     "proxy": false
   },
   "Twitter-RindouMikoto": {
@@ -28,7 +20,7 @@
     "group": [
       362737961
     ],
-    "translate": false,
+    "translate": true,
     "proxy": false
   }
 }
