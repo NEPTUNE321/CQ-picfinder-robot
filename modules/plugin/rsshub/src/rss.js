@@ -106,7 +106,13 @@ function sub (config, send) {
         '----------------------\n' +
         `原链接：${item.link}\n` +
         `日期：${dayjs(item.pubDate).format('M月D日HH:mm:ss')}`;
-      Promise.all(config.group.map(group_id => send(message, group_id))).then(() => {
+      let arr = config.group,
+        type = 'group'
+      if (config.member) {
+        arr = config.member
+        type = 'member'
+      }
+      Promise.all(arr.map(id => send(message, id, type))).then(() => {
         logger.info('rss：发送成功 ==> ' + item.link);
         images.forEach(path => {
           del(path).catch(logger.error);
@@ -133,5 +139,5 @@ module.exports = function (send) {
     })
   }
   start();
-  setInterval(start, 1000 * 60 * 1);
+  setInterval(start, 1000 * 60 * 5);
 }
