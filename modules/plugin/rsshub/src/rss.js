@@ -106,8 +106,8 @@ function sub (config, send) {
         '----------------------\n' +
         `原链接：${item.link}\n` +
         `日期：${dayjs(item.pubDate).format('M月D日HH:mm:ss')}`;
-      let arr = config.group,
-        type = 'group'
+      let arr = config.group
+      let type = 'group'
       if (config.member) {
         arr = config.member
         type = 'member'
