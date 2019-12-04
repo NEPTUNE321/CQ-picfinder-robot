@@ -114,8 +114,9 @@ const qqMsg = (str) => {
   let atList = []
   arr.forEach(row => {
     row.follow.split(',').forEach(e => {
-      if (row.id === 756316845) atList.push(row.id)
-      if (str.name.includes(e)) {
+      if (row.id === 756316845) {
+        atList.push(row.id)
+      } else if (str.name.includes(e)) {
         atList.push(row.id)
       }
     })
