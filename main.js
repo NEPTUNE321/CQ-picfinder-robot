@@ -612,10 +612,6 @@ function getLiving (e, context) {
         let link = 'https://live.bilibili.com/', title = ''
         if (row.type === 'you') link = 'https://www.youtube.com/watch?v='
         if (row.title) title = `\n直播内容:${row.title}`
-        replyMsg(
-          context,
-          `${ddHelper.ddAtHelper(CQ, row)}DD小助手提醒您\n${row.name}开勃了！\n直播间链接:${link}${row.id}${title}`
-        )
         const qqMsgArr = ddHelper.qqMsg(row)
         if (qqMsgArr && qqMsgArr.length > 0) {
           qqMsgArr.forEach(ele => {
@@ -625,6 +621,10 @@ function getLiving (e, context) {
             })
           })
         }
+        replyMsg(
+          context,
+          `${ddHelper.ddAtHelper(CQ, row)}DD小助手提醒您\n${row.name}开勃了！\n直播间链接:${link}${row.id}${title}`
+        )
       })
     }
   }

@@ -109,14 +109,15 @@ const ddAtHelper = (CQ, str) => {
 }
 
 const qqMsg = (str) => {
-  if (!str.roomId) return ''
-  const arr = fs.readJsonSync(qqMsgPath)
+  console.log(JSON.stringify(str))
   console.log(JSON.stringify(arr))
+  if (!str.name) return ''
+  const arr = fs.readJsonSync(qqMsgPath)
   let atList = []
   arr.forEach(row => {
     row.follow.split(',').forEach(e => {
       if (row.id === 756316845) atList.push(row.id)
-      if (str.roomId.includes(e)) {
+      if (str.name.includes(e)) {
         atList.push(row.id)
       }
     })
