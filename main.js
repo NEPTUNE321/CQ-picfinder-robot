@@ -609,14 +609,22 @@ function getLiving (e, context) {
     let arr = await ddHelper.checkLiving()
     if (arr) {
       arr.forEach(row => {
-        console.log(row)
         let link = 'https://live.bilibili.com/', title = ''
         if (row.type === 'you') link = 'https://www.youtube.com/watch?v='
         if (row.title) title = `\n直播内容:${row.title}`
         replyMsg(
           context,
-          `${ddHelper.ddAtHelper(CQ, row)}${CQ.at(756316845)}\nDD小助手提醒您\n${row.name}开勃了！\n直播间链接:${link}${row.id}${title}`
+          `${ddHelper.ddAtHelper(CQ, row)}DD小助手提醒您\n${row.name}开勃了！\n直播间链接:${link}${row.id}${title}`
         )
+        const qqMsgArr = ddHelper.ddAtHelper(CQ, row)
+        if (qqMsgArr && qqMsgArr.length > 0) {
+          qqMsgArr.forEach(ele => {
+            bot('send_private_msg', {
+              user_id: ele,
+              message: `DD小助手提醒您\n${row.name}开勃了！\n直播间链接:${link}${row.id}${title}`
+            })
+          })
+        }
       })
     }
   }

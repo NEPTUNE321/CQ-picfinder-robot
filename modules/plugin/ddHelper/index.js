@@ -6,6 +6,7 @@ const ytbJsonPath = './modules/plugin/ddHelper/runtime/ytblast.json'
 const biliPath = './modules/plugin/ddHelper/json/following.json'
 const ytbPath = './modules/plugin/ddHelper/json/youtubeFollow.json'
 const qqPath = './modules/plugin/ddHelper/json/ddList.json'
+const qqMsgPath = './modules/plugin/ddHelper/json/qqMsg.json'
 
 var newLiving = []
 
@@ -100,7 +101,22 @@ const ddAtHelper = (CQ, str) => {
   arr.forEach(row => {
     row.follow.split(',').forEach(e => {
       if (str.roomId.includes(e)) {
-        atList += CQ.at(row.name) + '\n'
+        atList += CQ.at(row.id) + '\n'
+      }
+    })
+  })
+  return atList
+}
+
+const qqMsg = (str) => {
+  if (!str.roomId) return ''
+  const arr = fs.readJsonSync(qqMsgPath)
+  let atList = ''
+  arr.forEach(row => {
+    row.follow.split(',').forEach(e => {
+      if (row.id === 756316845) atList.push(row.id)
+      if (str.roomId.includes(e)) {
+        atList.push(row.id)
       }
     })
   })
@@ -134,5 +150,6 @@ export default {
   addDDlist,
   helpMeDD,
   ddAtHelper,
-  checkVtb
+  checkVtb,
+  qqMsg
 }
