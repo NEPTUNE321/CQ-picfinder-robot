@@ -109,8 +109,6 @@ const ddAtHelper = (CQ, str) => {
 }
 
 const qqMsg = (str) => {
-  console.log(JSON.stringify(str))
-  console.log(JSON.stringify(arr))
   if (!str.name) return ''
   const arr = fs.readJsonSync(qqMsgPath)
   let atList = []
