@@ -616,7 +616,7 @@ function getLiving (e, context) {
           context,
           `${ddHelper.ddAtHelper(CQ, row)}DD小助手提醒您\n${row.name}开勃了！\n直播间链接:${link}${row.id}${title}`
         )
-        const qqMsgArr = ddHelper.ddAtHelper(CQ, row)
+        const qqMsgArr = ddHelper.qqMsg(row)
         if (qqMsgArr && qqMsgArr.length > 0) {
           qqMsgArr.forEach(ele => {
             bot('send_private_msg', {
