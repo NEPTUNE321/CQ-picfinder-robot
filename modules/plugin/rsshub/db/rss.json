@@ -22,5 +22,21 @@
     ],
     "translate": true,
     "proxy": false
+  },
+  "Twitter-ellesclubxoxo": {
+    "url": "/twitter/user/ellesclubxoxo",
+    "group": [
+      756236683
+    ],
+    "translate": false,
+    "proxy": false
+  },
+  "Twitter-JILL_mw": {
+    "url": "/twitter/user/JILL_mw",
+    "group": [
+      756236683
+    ],
+    "translate": false,
+    "proxy": false
   }
 }
