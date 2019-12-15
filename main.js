@@ -636,3 +636,4 @@ function getLiving (e, context) {
  * 启动rsshub监听
  */
 rsshub.getMsg(bot)
+rsshub.getBilibiliVideo(bot)

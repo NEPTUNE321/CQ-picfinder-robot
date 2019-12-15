@@ -1,0 +1,16 @@
+{
+  "bilibili-rie": {
+    "url": "/bilibili/user/video/439420557",
+    "group": [
+      362737961
+    ],
+    "proxy": false
+  },
+  "bilibili-RindouMikoto": {
+    "url": "/bilibili/user/video/434564604",
+    "member": [
+      756316845
+    ],
+    "proxy": false
+  }
+}
