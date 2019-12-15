@@ -4,7 +4,7 @@ const {
 const fs = require('fs');
 const path = require('path');
 const db = require('../db');
-const rsslist = require('../db/bilibili-video.json');
+const rsslist = require('../../db/bilibili-video.json');
 const rp = require('request-promise');
 const Parser = require('rss-parser');
 const dayjs = require('dayjs');
@@ -13,9 +13,8 @@ const cheerio = require('cheerio');
 const download = require('download');
 const del = require('del');
 const fileType = require('file-type');
-const translate = require('./translate');
-const mkdirTmp = require('./mkdirTmp');
-const logger = require('./logger');
+const mkdirTmp = require('../mkdirTmp');
+const logger = require('../logger');
 
 function sub (config, send) {
   rp.get(`${rsshub}${config.url}`, {
