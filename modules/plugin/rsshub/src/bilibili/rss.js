@@ -71,12 +71,12 @@ function sub (config, send) {
           fileDataArr.forEach(fileData => {
             mkdirTmp();
             const imgType = fileType(fileData).ext;
-            const imgPath = path.join(__dirname, `../tmp/${Math.random().toString(36).substr(2)}.${imgType}`);
+            const imgPath = path.join(__dirname, `../../tmp/${Math.random().toString(36).substr(2)}.${imgType}`);
             fs.writeFileSync(imgPath, fileData);
             images.push(imgPath);
           })
         } catch (error) {
-          logger.error(`rss：图片下载失败 ==> ${config.name} ==> ${err.message || JSON.stringify(err)}`);
+          logger.error(`rss：图片下载失败 ==> ${config.name} ==> ${error.message || JSON.stringify(error)}`);
         }
       }
       const cqimgpath = images.map(imgPath => {
