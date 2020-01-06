@@ -2,7 +2,7 @@
  * @Author: JindaiKirin
  * @Date: 2018-07-09 10:52:50
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-01-06 17:21:54
+ * @Last Modified time: 2020-01-06 17:58:11
  */
 import CQWebsocket from 'cq-websocket'
 import config from './modules/config'
@@ -458,67 +458,61 @@ async function searchImg (context, customDB = -1) {
 
       if (!hasCache) {
         //检查搜图次数
-        if (
-          context.user_id != setting.admin &&
-          !logger.canSearch(context.user_id, setting.searchLimit)
-        ) {
-          replyMsg(context, setting.replys.personLimit)
-          return
+        if (context.user_id != setting.admin && !logger.canSearch(context.user_id, setting.searchLimit)) {
+          replyMsg(context, setting.replys.personLimit);
+          return;
         }
 
-        let needCacheMsgs = []
-        let success = true
+        const needCacheMsgs = [];
+        let success = true;
         let useAscii2d = hasCommand('a2d')
         let useWhatAnime = hasCommand('anime')
 
         //saucenao
         if (!useAscii2d) {
-          let saRet = await saucenao(
-            img.url,
-            db < 0 ? snDB.all : db,
-            hasCommand('debug')
-          )
-          if (!saRet.success) success = false
-          if (saRet.lowAcc && (db == snDB.all || db == snDB.pixiv))
-            useAscii2d = true
-          if (!saRet.lowAcc && saRet.msg.indexOf('anidb.net') !== -1)
-            useWhatAnime = true
-          if (saRet.msg.length > 0) needCacheMsgs.push(saRet.msg)
+          const saRet = await saucenao(img.url, db, hasCommand('debug'));
+          if (!saRet.success) success = false;
+          if ((saRet.lowAcc && (db == snDB.all || db == snDB.pixiv)) || saRet.excess) useAscii2d = true;
+          if (!saRet.lowAcc && saRet.msg.indexOf('anidb.net') !== -1) useWhatAnime = true;
+          if (saRet.msg.length > 0) needCacheMsgs.push(saRet.msg);
 
-          replyMsg(context, saRet.msg)
-          replyMsg(context, saRet.warnMsg)
+          replyMsg(context, saRet.msg);
+          replyMsg(context, saRet.warnMsg);
         }
 
         //ascii2d
         if (useAscii2d) {
-          let { color, bovw, asErr } = await ascii2d(img.url).catch(asErr => ({
-            asErr
-          }))
+          const { color, bovw, asErr } = await ascii2d(img.url).catch(asErr => ({
+            asErr,
+          }));
           if (asErr) {
             const errMsg = (asErr.response && asErr.response.data.length < 50 && `\n${asErr.response.data}`) || '';
             replyMsg(context, `ascii2d 搜索失败${errMsg}`);
             console.error(`${getTime()} [error] ascii2d`);
+            console.error(asErr);
           } else {
-            replyMsg(context, color)
-            replyMsg(context, bovw)
-            needCacheMsgs.push(color)
-            needCacheMsgs.push(bovw)
+            replyMsg(context, color);
+            replyMsg(context, bovw);
+            needCacheMsgs.push(color);
+            needCacheMsgs.push(bovw);
           }
         }
 
         //搜番
         if (useWhatAnime) {
-          let waRet = await whatanime(img.url, hasCommand('debug'))
-          if (!waRet.success) success = false //如果搜番有误也视作不成功
-          replyMsg(context, waRet.msg)
-          if (waRet.msg.length > 0) needCacheMsgs.push(waRet.msg)
+          const waRet = await whatanime(img.url, hasCommand('debug'));
+          if (!waRet.success) success = false; //如果搜番有误也视作不成功
+          replyMsg(context, waRet.msg);
+          if (waRet.msg.length > 0) needCacheMsgs.push(waRet.msg);
         }
 
+        if (success) logger.doneSearch(context.user_id);
+
         //将需要缓存的信息写入数据库
-        if (Pfsql.isEnable() && success) {
-          let sql = new Pfsql()
-          await sql.addCache(img.file, db, needCacheMsgs)
-          sql.close()
+        if (sqlEnable && success) {
+          const sql = new PFSql();
+          await sql.addCache(img.file, db, needCacheMsgs);
+          sql.close();
         }
       }
     }

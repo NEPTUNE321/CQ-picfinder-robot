@@ -20,6 +20,8 @@ async function doSearch (url) {
     colorURL: r.request.res.responseUrl,
     colorHTML: r.data,
   }));
+  console.log(colorURL);
+  console.log(colorHTML);
   let bovwURL = colorURL.replace('/color/', '/bovw/');
   let bovwHTML = await get(bovwURL).then(r => r.data);
   return {
