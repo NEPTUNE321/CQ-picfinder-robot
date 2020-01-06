@@ -2,7 +2,7 @@
  * @Author: JindaiKirin
  * @Date: 2018-07-09 10:52:50
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2019-08-27 09:10:31
+ * @Last Modified time: 2020-01-06 16:49:57
  */
 import CQWebsocket from 'cq-websocket'
 import config from './modules/config'
@@ -33,6 +33,7 @@ const schedule = require('node-schedule')
 const addDDReg = new RegExp(setting.regs.addDD)
 const atDDReg = new RegExp(setting.regs.atDD)
 const checkVtbReg = new RegExp(setting.regs.checkVtb)
+const checkRptReg = new RegExp(setting.regs.checkRpt)
 
 //初始化
 Pfsql.sqlInitialize()
@@ -189,11 +190,44 @@ setInterval(() => {
           times: 10
         })
       }
+      sendRptMsg()
       //更新明日方舟干员数据
       if (setting.akhr.enable) Akhr.updateData()
     }, 60 * 1000)
   }
-}, 60 * 60 * 1000)
+}, 24 * 60 * 60 * 1000)
+
+//发送复读消息log
+function sendRptMsg (groupId) {
+  function getRptMsg (element) {
+    let message = `今日复读情况:`
+    if (element && element.length > 0) {
+      element.forEach(row => {
+        message = `${message}\n用户:${CQ.at(row.user_id)},复读次数${row.time}次`
+      })
+    } else {
+      message = `暂无今日复读情况`
+      console.log(message)
+    }
+    if (message !== `暂无今日复读情况`) {
+      bot('send_group_msg', {
+        group_id: key,
+        message
+      })
+    }
+  }
+  let rptData = logger.rptMsgLog()
+  if (groupId) {
+    getRptMsg(rptData[groupId])
+    return
+  }
+  for (const key in rptData) {
+    if (rptData.hasOwnProperty(key)) {
+      const element = rptData[key]
+      getRptMsg(element)
+    }
+  }
+}
 
 //通用处理
 function commonHandle (e, context) {
@@ -221,6 +255,10 @@ function privateAndAtMsg (e, context) {
     let name = msg.split(',')[1]
     ddHelper.addDDlist(roomId, name)
     replyMsg(context, '收录' + name + '成功\n当前收录vtb' + ddHelper.checkVtb())
+    return
+  }
+  if (checkRptReg.exec(context.message) && (context.user_id === setting.admin)) {
+    sendRptMsg(context.group_id)
     return
   }
   if (checkVtbReg.exec(context.message)) {
@@ -339,11 +377,13 @@ function groupMsg (e, context) {
       //延迟2s后复读
       setTimeout(() => {
         replyMsg(context, context.message)
+        logger.rptMsgLog(group_id, user_id)
       }, 2000)
     } else if (getRand() <= setting.repeat.commonProb) {
       //平时发言下的随机复读
       setTimeout(() => {
         replyMsg(context, context.message)
+        logger.rptMsgLog(group_id, user_id)
       }, 2000)
     }
   }

@@ -39,7 +39,8 @@
       "setu": "(竹竹.*[来來发發给給].*[色瑟][图圖])|(--setu)",
       "addDD": "添加直播间(.*)",
       "atDD": "帮我关注(.*)",
-      "checkVtb": "(.*)查询vtb"
+      "checkVtb": "(.*)查询vtb",
+      "checkRpt": "查询复读情况"
     },
     "replys": {
       "default": "必须要发送图片我才能帮你找噢_(:3」」\n支持批量！",
@@ -91,5 +92,8 @@
   ],
   "whatanimeHost": [
     "trace.moe"
+  ],
+  "ascii2dHost": [
+    "ascii2d.net"
   ]
 }
