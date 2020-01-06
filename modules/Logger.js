@@ -2,7 +2,7 @@
  * @Author: JindaiKirin 
  * @Date: 2018-07-23 10:54:03 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-01-06 16:15:47
+ * @Last Modified time: 2020-01-06 17:03:44
  */
 
 import Fs from 'fs';
@@ -194,6 +194,8 @@ class Logger {
         if (element.user_id === u) element.time++
       })
     }
+    console.log(t)
+    this.repeatLog[g] = t
     return t
   }
 

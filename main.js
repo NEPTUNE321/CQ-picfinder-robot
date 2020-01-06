@@ -2,7 +2,7 @@
  * @Author: JindaiKirin
  * @Date: 2018-07-09 10:52:50
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-01-06 16:49:57
+ * @Last Modified time: 2020-01-06 17:04:17
  */
 import CQWebsocket from 'cq-websocket'
 import config from './modules/config'
@@ -207,14 +207,11 @@ function sendRptMsg (groupId) {
       })
     } else {
       message = `暂无今日复读情况`
-      console.log(message)
     }
-    if (message !== `暂无今日复读情况`) {
-      bot('send_group_msg', {
-        group_id: key,
-        message
-      })
-    }
+    bot('send_group_msg', {
+      group_id: key,
+      message
+    })
   }
   let rptData = logger.rptMsgLog()
   if (groupId) {
@@ -377,7 +374,6 @@ function groupMsg (e, context) {
       //延迟2s后复读
       setTimeout(() => {
         replyMsg(context, context.message)
-        logger.rptMsgLog(group_id, user_id)
       }, 2000)
     } else if (getRand() <= setting.repeat.commonProb) {
       //平时发言下的随机复读
