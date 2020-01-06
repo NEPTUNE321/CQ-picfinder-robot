@@ -2,7 +2,7 @@
  * @Author: JindaiKirin
  * @Date: 2018-07-09 10:52:50
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-01-06 17:09:39
+ * @Last Modified time: 2020-01-06 17:21:54
  */
 import CQWebsocket from 'cq-websocket'
 import config from './modules/config'
@@ -494,7 +494,11 @@ async function searchImg (context, customDB = -1) {
           let { color, bovw, asErr } = await ascii2d(img.url).catch(asErr => ({
             asErr
           }))
-          if (!asErr) {
+          if (asErr) {
+            const errMsg = (asErr.response && asErr.response.data.length < 50 && `\n${asErr.response.data}`) || '';
+            replyMsg(context, `ascii2d 搜索失败${errMsg}`);
+            console.error(`${getTime()} [error] ascii2d`);
+          } else {
             replyMsg(context, color)
             replyMsg(context, bovw)
             needCacheMsgs.push(color)

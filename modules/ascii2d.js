@@ -2,12 +2,10 @@
  * @Author: Jindai Kirin 
  * @Date: 2019-04-25 22:21:24 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-01-06 17:15:50
+ * @Last Modified time: 2020-01-06 17:28:58
  */
 
-import {
-  get
-} from 'axios';
+import { get } from './axiosProxy';
 import Cheerio from 'cheerio';
 import CQ from './CQcode';
 import config from './config';
