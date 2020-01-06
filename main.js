@@ -2,7 +2,7 @@
  * @Author: JindaiKirin
  * @Date: 2018-07-09 10:52:50
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-01-06 17:04:17
+ * @Last Modified time: 2020-01-06 17:09:39
  */
 import CQWebsocket from 'cq-websocket'
 import config from './modules/config'
@@ -199,7 +199,7 @@ setInterval(() => {
 
 //发送复读消息log
 function sendRptMsg (groupId) {
-  function getRptMsg (element) {
+  function getRptMsg (element, group_id) {
     let message = `今日复读情况:`
     if (element && element.length > 0) {
       element.forEach(row => {
@@ -209,19 +209,19 @@ function sendRptMsg (groupId) {
       message = `暂无今日复读情况`
     }
     bot('send_group_msg', {
-      group_id: key,
+      group_id,
       message
     })
   }
   let rptData = logger.rptMsgLog()
   if (groupId) {
-    getRptMsg(rptData[groupId])
+    getRptMsg(rptData[groupId], groupId)
     return
   }
   for (const key in rptData) {
     if (rptData.hasOwnProperty(key)) {
       const element = rptData[key]
-      getRptMsg(element)
+      getRptMsg(element, key)
     }
   }
 }
