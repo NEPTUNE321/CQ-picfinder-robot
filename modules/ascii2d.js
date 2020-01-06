@@ -1,10 +1,3 @@
-/*
- * @Author: Jindai Kirin 
- * @Date: 2019-04-25 22:21:24 
- * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-01-06 17:28:58
- */
-
 import { get } from './axiosProxy';
 import Cheerio from 'cheerio';
 import CQ from './CQcode';
@@ -23,18 +16,15 @@ async function doSearch (url) {
   let host = hosts[hostsI++ % hosts.length];
   if (host === 'ascii2d.net') host = `https://${host}`;
   else if (!/^https?:\/\//.test(host)) host = `http://${host}`;
-  let {
-		colorURL,
-    colorHTML
-	} = await get(`${host}/search/url/${encodeURIComponent(url)}`).then(r => ({
-      colorURL: r.request.res.responseUrl,
-      colorHTML: r.data
-    }));
+  let { colorURL, colorHTML } = await get(`${host}/search/url/${encodeURIComponent(url)}`).then(r => ({
+    colorURL: r.request.res.responseUrl,
+    colorHTML: r.data,
+  }));
   let bovwURL = colorURL.replace('/color/', '/bovw/');
   let bovwHTML = await get(bovwURL).then(r => r.data);
   return {
     color: 'ascii2d 色合検索\n' + getShareText(getDetail(colorHTML, host)),
-    bovw: 'ascii2d 特徴検索\n' + getShareText(getDetail(bovwHTML, host))
+    bovw: 'ascii2d 特徴検索\n' + getShareText(getDetail(bovwHTML, host)),
   };
 }
 
@@ -42,6 +32,7 @@ async function doSearch (url) {
  * 解析 ascii2d 网页结果
  *
  * @param {string} html ascii2d HTML
+ * @param {string} baseURL ascii2d base URL
  * @returns 画像搜索结果
  */
 function getDetail (html, baseURL) {
@@ -66,13 +57,8 @@ function getDetail (html, baseURL) {
   return {};
 }
 
-function getShareText ({
-	url,
-  title,
-  author,
-  thumbnail,
-  author_url
-}) {
+function getShareText ({ url, title, author, thumbnail, author_url }) {
+  if (!url) return '由未知错误导致搜索失败';
   let text = `「${title}」/「${author}」
 ${CQ.img(thumbnail)}
 ${pixivShorten(url)}`;
