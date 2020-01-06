@@ -2,7 +2,7 @@
  * @Author: Jindai Kirin 
  * @Date: 2019-04-25 22:21:24 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-01-06 09:34:43
+ * @Last Modified time: 2020-01-06 17:15:50
  */
 
 import {
@@ -35,8 +35,8 @@ async function doSearch (url) {
   let bovwURL = colorURL.replace('/color/', '/bovw/');
   let bovwHTML = await get(bovwURL).then(r => r.data);
   return {
-    color: 'ascii2d 色合検索\n' + getShareText(getDetail(colorHTML)),
-    bovw: 'ascii2d 特徴検索\n' + getShareText(getDetail(bovwHTML))
+    color: 'ascii2d 色合検索\n' + getShareText(getDetail(colorHTML, host)),
+    bovw: 'ascii2d 特徴検索\n' + getShareText(getDetail(bovwHTML, host))
   };
 }
 
@@ -46,22 +46,26 @@ async function doSearch (url) {
  * @param {string} html ascii2d HTML
  * @returns 画像搜索结果
  */
-function getDetail (html) {
+function getDetail (html, baseURL) {
   const $ = Cheerio.load(html, {
     decodeEntities: false
   });
-  let $box = $($('.item-box')[1]);
-  let thumbnail = host + $box.find('.image-box img').attr('src');
-  let $link = $box.find('.detail-box a');
-  let $title = $($link[0]);
-  let $author = $($link[1]);
-  return {
-    thumbnail,
-    title: $title.html(),
-    author: $author.html(),
-    url: $title.attr('href'),
-    author_url: $author.attr('href')
-  };
+  const $itembox = $('.item-box');
+  for (let i = 0; i < $itembox.length; i++) {
+    const $box = $($itembox[i]);
+    const $link = $box.find('.detail-box a');
+    if ($link.length === 0) continue;
+    const $title = $($link[0]);
+    const $author = $($link[1]);
+    return {
+      thumbnail: baseURL + $box.find('.image-box img').attr('src'),
+      title: $title.html(),
+      author: $author.html(),
+      url: $title.attr('href'),
+      author_url: $author.attr('href'),
+    };
+  }
+  return {};
 }
 
 function getShareText ({
