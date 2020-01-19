@@ -2,7 +2,7 @@
  * @Author: JindaiKirin 
  * @Date: 2018-07-23 10:54:03 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2020-01-06 17:03:44
+ * @Last Modified time: 2020-01-19 11:32:10
  */
 
 import Fs from 'fs';
@@ -182,17 +182,20 @@ class Logger {
     let t = this.repeatLog[g]
     if (!u) return t
     //没有记录或另起复读则新建记录
+    let arr = []
+    let data = {
+      user_id: u,
+      time: 1
+    }
     if (!t || t.length === 0) {
       t = []
-      let data = {
-        user_id: u,
-        time: 1
-      }
       t.push(data)
     } else {
       t.forEach(element => {
         if (element.user_id === u) element.time++
+        arr.push(element.user_id)
       })
+      if (!arr.includes(u)) t.push(data)
     }
     console.log(t)
     this.repeatLog[g] = t
