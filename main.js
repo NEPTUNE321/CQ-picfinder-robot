@@ -248,12 +248,12 @@ function privateAndAtMsg (e, context) {
   if (!commonHandle(e, context)) return
   if (context.message.includes('d')) {
     let str = ''
-    let num = context.message.split('d')[0]
-    let rande = context.message.split('d')[1]
+    let num = context.message.trim().split('d')[0]
+    let rande = context.message.trim().split('d')[1]
     for (let i = 0; i < num; i++) {
       str = `${str ? str + ',' : ''}${Math.round(getRand(rande))}`
     }
-    replyMsg(context, str, true)
+    replyMsg(context, str)
     return
   }
   if (addDDReg.exec(context.message) && (context.user_id === setting.admin)) {
