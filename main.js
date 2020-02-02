@@ -246,6 +246,16 @@ function commonHandle (e, context) {
 //私聊以及群组@的处理
 function privateAndAtMsg (e, context) {
   if (!commonHandle(e, context)) return
+  if (context.message.includes('d')) {
+    let str = ''
+    let num = context.message.split('d')[0]
+    let rande = context.message.split('d')[1]
+    for (let i = 0; i < num; i++) {
+      str = `${str ? str + ',' : ''}${Math.round(getRand(rande))}`
+    }
+    replyMsg(context, str)
+    return
+  }
   if (addDDReg.exec(context.message) && (context.user_id === setting.admin)) {
     let msg = context.message.split('直播间,')[1]
     let roomId = msg.split(',')[0]
@@ -267,16 +277,6 @@ function privateAndAtMsg (e, context) {
     let ddMsg = ddHelper.helpMeDD(context.user_id, str)
     if (ddMsg)
       replyMsg(context, `已为您关注:${str}\n您当前已关注:${ddMsg}`, true)
-    return
-  }
-  if (context.message.includes('d')) {
-    let str = ''
-    let num = context.message.split('d')[0]
-    let rande = context.message.split('d')[1]
-    for (let i = 0; i < num; i++) {
-      str = `${str ? str + ',' : ''}${getRand(rande)}`
-    }
-    replyMsg(context, str)
     return
   }
   if (hasImage(context.message)) {
