@@ -142,7 +142,7 @@ if (setting.debug) {
   //私聊
   bot.on('message.private', privateAndAtMsg)
   //讨论组@
-  //bot.on('message.discuss.@me', privateAndAtMsg);
+  bot.on('message.discuss.@me', privateAndAtMsg);
   //群组@
   bot.on('message.group.@me', privateAndAtMsg)
   //群组
@@ -267,6 +267,16 @@ function privateAndAtMsg (e, context) {
     let ddMsg = ddHelper.helpMeDD(context.user_id, str)
     if (ddMsg)
       replyMsg(context, `已为您关注:${str}\n您当前已关注:${ddMsg}`, true)
+    return
+  }
+  if (context.message.includes('d')) {
+    let str = ''
+    let num = context.message.split('d')[0]
+    let rande = context.message.split('d')[1]
+    num.forEach(() => {
+      str = `${str ? str + ',' : ''}${getRand(rande)}`
+    })
+    replyMsg(context, str)
     return
   }
   if (hasImage(context.message)) {
@@ -625,8 +635,8 @@ function replyMsg (context, msg, at = false) {
  *
  * @returns 0到100之间的随机浮点数
  */
-function getRand () {
-  return rand.floatBetween(0, 100)
+function getRand (e) {
+  return rand.floatBetween(0, e || 100)
 }
 
 function getTime () {
