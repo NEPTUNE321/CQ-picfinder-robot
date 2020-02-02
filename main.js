@@ -273,9 +273,9 @@ function privateAndAtMsg (e, context) {
     let str = ''
     let num = context.message.split('d')[0]
     let rande = context.message.split('d')[1]
-    num.forEach(() => {
+    for (let i = 0; i < num; i++) {
       str = `${str ? str + ',' : ''}${getRand(rande)}`
-    })
+    }
     replyMsg(context, str)
     return
   }
