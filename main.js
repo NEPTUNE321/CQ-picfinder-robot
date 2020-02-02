@@ -253,7 +253,7 @@ function privateAndAtMsg (e, context) {
     for (let i = 0; i < num; i++) {
       str = `${str ? str + ',' : ''}${Math.round(getRand(rande))}`
     }
-    replyMsg(context, str)
+    replyMsg(context, str, true)
     return
   }
   if (addDDReg.exec(context.message) && (context.user_id === setting.admin)) {
