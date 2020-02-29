@@ -248,6 +248,7 @@ function privateAndAtMsg (e, context) {
   if (!commonHandle(e, context)) return
   if (context.message.includes('d')) {
     let str = ''
+    console.log(context.message)
     let num = context.message.trim().split('d')[0]
     let rande = context.message.trim().split('d')[1]
     for (let i = 0; i < num; i++) {
