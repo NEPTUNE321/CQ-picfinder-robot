@@ -203,7 +203,7 @@ function sendRptMsg (groupId) {
     let message = `今日复读情况:`
     if (element && element.length > 0) {
       element.forEach(row => {
-        message = `${message}\n用户:${CQ.at(row.user_id)},复读次数${row.time}次`
+        message = `${message}\n用户:${row.user_id},复读次数${row.time}次`
       })
     } else {
       message = `暂无今日复读情况`

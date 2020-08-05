@@ -1,27 +1,13 @@
 {
   "bilibili-rie": {
     "url": "/bilibili/user/video/439420557",
-    "group": [
-      362737961
-    ],
-    "proxy": false
-  },
-  "bilibili-YuNi": {
-    "url": "/bilibili/user/video/325325965",
-    "group": [
-      362737961
-    ],
-    "proxy": false
-  },
-  "bilibili-ookamimio": {
-    "url": "/bilibili/user/video/389862071",
     "member": [
       756316845
     ],
     "proxy": false
   },
-  "bilibili-shirakamifubuki": {
-    "url": "/bilibili/user/video/332704117",
+  "bilibili-YuNi": {
+    "url": "/bilibili/user/video/325325965",
     "member": [
       756316845
     ],
