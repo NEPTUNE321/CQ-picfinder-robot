@@ -1,20 +1,4 @@
 {
-  "Twitter-shirakamifubuki": {
-    "url": "/twitter/user/shirakamifubuki",
-    "member": [
-      756316845
-    ],
-    "translate": true,
-    "proxy": false
-  },
-  "Twitter-ookamimio": {
-    "url": "/twitter/user/ookamimio",
-    "member": [
-      756316845
-    ],
-    "translate": true,
-    "proxy": false
-  },
   "Twitter-RindouMikoto": {
     "url": "/twitter/user/RindouMikoto",
     "member": [
@@ -25,8 +9,8 @@
   },
   "Twitter-JILL_mw": {
     "url": "/twitter/user/JILL_mw",
-    "group": [
-      756236683
+    "member": [
+      756316845
     ],
     "translate": false,
     "proxy": false
